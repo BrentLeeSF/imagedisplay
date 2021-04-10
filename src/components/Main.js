@@ -97,13 +97,12 @@ class Main extends React.Component {
                 <Form.Control
                   placeholder="Search Image"
                   type="text"
-                  className="form-control"
+                  className="mr-sm-2"
                   value={this.state.currentSearch}
                   name="currentSearch"
                   onChange={(e) =>
                     this.setState({ currentSearch: e.target.value })
                   }
-                  className="mr-sm-2"
                 />
               </Form.Group>
               <Button
