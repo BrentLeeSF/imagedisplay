@@ -119,7 +119,7 @@ class Main extends React.Component {
           <Container fluid="sm">
             <div>
               <p>
-                <a href="https://github.com/BrentLeeSF/imagedisplay" target="_blank">Download dictionary text file and select</a>{" "}
+                <a href="https://github.com/BrentLeeSF/imagedisplay" target="blank">Download dictionary text file and select</a>{" "}
                 <input type="file" onChange={(e) => this.showFile(e)} />
               </p>
               {this.state.errorMessge !== null ? (
