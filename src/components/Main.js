@@ -4,6 +4,7 @@ import { Form, Button, Container, Navbar, Nav } from "react-bootstrap";
 import PhotoContainer from "./PhotoContainer";
 import SpellChecker from "./SpellChecker";
 import Layout from "./Layout";
+import dict from "./dict";
 
 class Main extends React.Component {
   constructor(props) {
@@ -11,13 +12,14 @@ class Main extends React.Component {
     this.state = {
       photos: [],
       currentSearch: "",
-      everyWord: new Set(),
+      everyWord: new Set(dict),
       errorMessge: "",
     };
   }
 
   showFile = async (e) => {
     e.preventDefault();
+    this.setState({everyWord: new Set()});
     const reader = new FileReader();
 
     reader.onload = async (e) => {
@@ -90,7 +92,7 @@ class Main extends React.Component {
         <div>
           <Navbar bg="primary" variant="light">
             <Nav className="mr-auto search-text">
-              Search Images, but Load Dictionary (Choose File) First!
+              Search images, or download text file from GitHub repo and use another dictionary
             </Nav>
             <Form inline>
               <Form.Group>
@@ -117,20 +119,18 @@ class Main extends React.Component {
         </div>
         <Layout>
           <Container fluid="sm">
-            <div>
-              <p>
-                <a href="https://github.com/BrentLeeSF/imagedisplay" target="blank">Download dictionary text file and select</a>{" "}
+            <p>
+                <a href="https://github.com/BrentLeeSF/imagedisplay" target="blank">Option: use a different dictionary from here</a>{" "}
                 <input type="file" onChange={(e) => this.showFile(e)} />
               </p>
-              {this.state.errorMessge !== null ? (
+            {this.state.errorMessge !== null ? (
                 <div className="errorMessage">
                   <h3>{this.state.errorMessge}</h3>
                 </div>
               ) : (
                 <div></div>
               )}
-            </div>
-            <div>
+              <div>
               <PhotoContainer photos={this.state.photos} />
             </div>
           </Container>

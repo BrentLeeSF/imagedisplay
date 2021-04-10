@@ -32,6 +32,7 @@ const SpellChecker = (currentSearch, everyWord) => {
   }
   const thisWord = newWord.join("");
   let correctedVowelsInWord;
+
   if (!everyWord.has(thisWord)) {
     let vowels = ["a", "e", "i", "o", "u"];
     correctedVowelsInWord = checkVowels(

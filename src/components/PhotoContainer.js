@@ -6,8 +6,6 @@ class PhotoContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
-      selectedIndex: -1,
       selectedPhoto: null,
     };
   }
