@@ -3,7 +3,7 @@
 Here is a link to the live site: https://peaceful-allen-b96c9c.netlify.app/ <br />
 <br />
 **Steps to run image display:**<br />
-1. Clone/Download this repo and save the dictionary text files (dictionaryOne.txt dictionaryTwo.txt). These are your dictionaries! You will not be able to find an image without one.<br />
+1. Clone/Download this repo and save the dictionary text files (dictionaryOne.txt, dictionaryTwo.txt). These are your dictionaries! You will not be able to find an image without one.<br />
 2. Click Choose File, and select one of the dictionary text files.<br />
 3. Type an image to search and click Submit.<br />
 4. Once images are displayed, click an image and the image will pop up. Click Close to close the image.<br />
