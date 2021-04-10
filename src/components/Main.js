@@ -22,7 +22,7 @@ class Main extends React.Component {
 
     reader.onload = async (e) => {
       const text = e.target.result;
-      const newThing = text.split("\n");
+      const newThing = text.split(/\s+/);
       for (let i = 0; i < newThing.length; i++) {
         this.state.everyWord.add(newThing[i]);
       }

@@ -9,6 +9,15 @@ Here is a link to the live site: https://peaceful-allen-b96c9c.netlify.app/ <br 
 4. Once images are displayed, click an image and the image will pop up. Click Close to close the image.<br />
 5. Search more images and try another dictionary text file and search more images.<br />
 6. To clear the dictionary, refresh the page.<br />
+7. Make your own text file dictionaries! Remember to refresh the page to clear the old dictionaries.<br />
+I set this up so my algorithm will break up text either by new line or space.<br />
+So a text file with: apple pear grape orange cherry<br />
+Will be the same as:<br />
+apple<br />
+pear<br />
+grape <br />
+orange <br />
+cherry<br />
 <br />
 **Search word spelling**<br />
 1. This removes unwanted, non-letter characters.<br />
