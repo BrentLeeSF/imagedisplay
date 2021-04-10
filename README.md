@@ -8,8 +8,7 @@ Here is a link to the live site: https://peaceful-allen-b96c9c.netlify.app/ <br 
 3. Type an image to search and click Submit.<br />
 4. Once images are displayed, click an image and the image will pop up. Click Close to close the image.<br />
 5. Search more images and try another dictionary text file and search more images.<br />
-6. To clear the dictionary, refresh the page.<br />
-7. Make your own text file dictionaries! Remember to refresh the page to clear the old dictionaries.<br />
+6. Make your own text file dictionaries and try a new search. You will not see results unless it is in the dictionary<br />
 I set this up so it will break up text either by new line or space.<br />
 So a text file with: apple pear grape orange cherry<br />
 Will be the same as:<br />
