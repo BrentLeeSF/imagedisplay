@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Image } from "react-bootstrap";
+import { Button, Modal, Image, Container, Row, Col } from "react-bootstrap";
 import "../App.css";
 
 class PhotoContainer extends React.Component {
@@ -15,27 +15,29 @@ class PhotoContainer extends React.Component {
   };
 
   render() {
-    if (this.props.photos.length > 0) {
+    const { photos}  = this.props;
+    if (photos.length > 0) {
       const displayPhotos = () => {
-        return this.props.photos.map((photo) => {
+        return (<Container><Row className="justify-content-sm-center">{photos.map((photo) => {
           return (
             <div key={photo.index}>
-              <div className="photoDescription">
+              <Col lg={6} flex>
+              <div className="photoDescription" style={{whiteSpace: "nowrap"}}>
                 <h4>{photo.searchWord}</h4>
               </div>
               <Image
                 index={photo.index}
-                width={500}
+                width={300}
                 src={photo.image}
                 alt={photo.searchWord}
-                fluid
                 onClick={(e) => {
                   this.handleModal(e, photo);
                 }}
               />
+              </Col>
             </div>
           );
-        });
+        })}</Row></Container>);
       };
       return (
         <div>
@@ -67,7 +69,7 @@ class PhotoContainer extends React.Component {
                 </Modal.Footer>
               </Modal>
             ) : (
-              <div></div>
+              <div />
             )}
           </div>
         </div>

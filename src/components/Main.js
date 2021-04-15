@@ -128,7 +128,7 @@ class Main extends React.Component {
                   <h3>{this.state.errorMessge}</h3>
                 </div>
               ) : (
-                <div></div>
+                <div />
               )}
               <div>
               <PhotoContainer photos={this.state.photos} />
