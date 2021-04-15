@@ -3,6 +3,5 @@ pear
 grape
 orange
 cherry
-Pears.
-PinApple
-Pear
+PinApple.
+BaNaNa
