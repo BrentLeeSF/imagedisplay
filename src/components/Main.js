@@ -20,13 +20,18 @@ class Main extends React.Component {
   showFile = async (e) => {
     e.preventDefault();
     this.setState({everyWord: new Set()});
+    const lettersNoSpaces = /^[A-Za-z]+$/;
     const reader = new FileReader();
 
     reader.onload = async (e) => {
       const text = e.target.result;
       const newThing = text.split(/\s+/);
+      let eachWord = '';
       for (let i = 0; i < newThing.length; i++) {
-        this.state.everyWord.add(newThing[i]);
+        eachWord = newThing[i].toLowerCase();
+        if(lettersNoSpaces.test(eachWord)) {
+          this.state.everyWord.add(eachWord);
+        }
       }
     };
     reader.readAsText(e.target.files[0]);
