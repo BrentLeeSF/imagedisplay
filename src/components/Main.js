@@ -1,51 +1,49 @@
 import "../App.css";
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button, Container, Navbar, Nav } from "react-bootstrap";
 import PhotoContainer from "./PhotoContainer";
 import SpellChecker from "./SpellChecker";
 import Layout from "./Layout";
 import dict from "./dict";
 
-class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      photos: [],
-      currentSearch: "",
-      everyWord: new Set(dict),
-      errorMessge: "",
-    };
-  }
+const Main = () => {
 
-  showFile = async (e) => {
+    const [photos, setPhotos] = useState([]);
+    const [currentSearch, setCurrentSearch] = useState("");
+    const [everyWord, setEveryWord] = useState(new Set(dict));
+    const [errorMessage, setErrorMessage] = useState("");
+
+  const showFile = async (e) => {
     e.preventDefault();
-    this.setState({everyWord: new Set()});
     const lettersNoSpaces = /^[A-Za-z]+$/;
+    
     const reader = new FileReader();
+    let everyWordArr = [];
 
     reader.onload = async (e) => {
       const text = e.target.result;
       const newThing = text.split(/\s+/);
-      let eachWord = '';
+      let eachWord = ''
       for (let i = 0; i < newThing.length; i++) {
-        eachWord = newThing[i].toLowerCase();
+        eachWord = newThing[i].toLowerCase().toString();
         if(lettersNoSpaces.test(eachWord)) {
-          this.state.everyWord.add(eachWord);
+          everyWordArr.push(eachWord);
         }
       }
+      setEveryWord(new Set(everyWordArr));
     };
     reader.readAsText(e.target.files[0]);
-    this.setState({ errorMessge: "" });
+    setErrorMessage("");
   };
 
-  async searchText() {
+  const searchText = async () => {
     try {
-      this.setState({ errorMessge: "" });
+      setErrorMessage("");
       const APIKEY = process.env.REACT_APP_API_KEY;
-      if (this.state.everyWord.size > 0) {
+      if (everyWord.size > 0) {
         const returnedWord = SpellChecker(
-          this.state.currentSearch,
-          this.state.everyWord
+          currentSearch,
+          everyWord
         );
         if (returnedWord !== null) {
           const res = await fetch(
@@ -68,30 +66,22 @@ class Main extends React.Component {
               });
               ++index;
             }
-
-            this.setState({ photos: returnedImages });
+            setPhotos(returnedImages);
           } else {
-            this.setState({
-              errorMessge: "Your search returned no results. Please try again",
-            });
+            setErrorMessage("Your search returned no results. Please try again");
           }
         } else {
-          this.setState({
-            errorMessge: "Your search returned no results. Please try again",
-          });
+          setErrorMessage("Your search returned no results. Please try again");
         }
       } else {
-        this.setState({
-          errorMessge: "Please load dictionary before you search",
-        });
+        setErrorMessage("Please load dictionary before you search");
       }
-      this.setState({ currentSearch: "" });
+      setCurrentSearch("");
     } catch (error) {
       throw new Error(error.message);
     }
   }
 
-  render() {
     return (
       <div className="App">
         <div>
@@ -105,17 +95,15 @@ class Main extends React.Component {
                   placeholder="Search Image"
                   type="text"
                   className="mr-sm-2"
-                  value={this.state.currentSearch}
+                  value={currentSearch}
                   name="currentSearch"
-                  onChange={(e) =>
-                    this.setState({ currentSearch: e.target.value })
-                  }
+                  onChange={(e) => setCurrentSearch(e.target.value)}
                 />
               </Form.Group>
               <Button
                 variant="light"
                 id="searchText"
-                onClick={() => this.searchText()}
+                onClick={() => searchText()}
               >
                 Submit
               </Button>
@@ -125,24 +113,24 @@ class Main extends React.Component {
         <Layout>
           <Container fluid="sm">
             <p>
-                <a href="https://github.com/BrentLeeSF/imagedisplay" target="blank">Option: use a different dictionary from here</a>{" "}
-                <input type="file" onChange={(e) => this.showFile(e)} />
+                <a href="https://github.com/BrentLeeSF/imagedisplay" 
+                target="blank">Option: use a different dictionary from here</a>{" "}
+                <input type="file" onChange={e => showFile(e)} />
               </p>
-            {this.state.errorMessge !== null ? (
+            {errorMessage !== null ? (
                 <div className="errorMessage">
-                  <h3>{this.state.errorMessge}</h3>
+                  <h3>{errorMessage}</h3>
                 </div>
               ) : (
                 <div />
               )}
               <div>
-              <PhotoContainer photos={this.state.photos} />
+              <PhotoContainer photos={photos} />
             </div>
           </Container>
         </Layout>
       </div>
     );
-  }
 }
 
 export default Main;

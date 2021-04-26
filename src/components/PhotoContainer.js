@@ -1,21 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal, Image, Container, Row, Col } from "react-bootstrap";
 import "../App.css";
 
-class PhotoContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedPhoto: null,
-    };
-  }
+const PhotoContainer = ({photos}) => {
 
-  handleModal = (event, photo) => {
-    this.setState({ selectedPhoto: photo });
-  };
+    const [selectedPhoto, setSelectedPhoto] = useState(null);
 
-  render() {
-    const { photos}  = this.props;
     if (photos.length > 0) {
       const displayPhotos = () => {
         return (<Container><Row className="justify-content-sm-center">{photos.map((photo) => {
@@ -30,9 +20,7 @@ class PhotoContainer extends React.Component {
                 width={300}
                 src={photo.image}
                 alt={photo.searchWord}
-                onClick={(e) => {
-                  this.handleModal(e, photo);
-                }}
+                onClick={e => setSelectedPhoto(photo)}
               />
               </Col>
             </div>
@@ -43,26 +31,24 @@ class PhotoContainer extends React.Component {
         <div>
           {displayPhotos()}
           <div>
-            {this.state.selectedPhoto !== null ? (
+            {selectedPhoto !== null ? (
               <Modal show={true}>
                 <Modal.Header>
                   <div className="photoDescription">
-                    <h4>{this.state.selectedPhoto.searchWord}</h4>
+                    <h4>{selectedPhoto.searchWord}</h4>
                   </div>
                 </Modal.Header>
                 <Modal.Body>
                   <Image
                     width={350}
-                    src={this.state.selectedPhoto.image}
-                    alt={this.state.selectedPhoto.searchWord}
+                    src={selectedPhoto.image}
+                    alt={selectedPhoto.searchWord}
                   />
                 </Modal.Body>
                 <Modal.Footer>
                   <Button
                     variant="primary"
-                    onClick={(e) => {
-                      this.handleModal(e, null);
-                    }}
+                    onClick={e => setSelectedPhoto(null)}
                   >
                     Close
                   </Button>
@@ -76,7 +62,6 @@ class PhotoContainer extends React.Component {
       );
     }
     return <div />;
-  }
 }
 
 export default PhotoContainer;
