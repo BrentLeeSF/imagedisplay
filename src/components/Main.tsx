@@ -5,26 +5,29 @@ import PhotoContainer from "./PhotoContainer";
 import SpellChecker from "./SpellChecker";
 import Layout from "./Layout";
 import dict from "./dict";
+import { eachImage } from '../interfaces/eachImage';
+
 
 const Main = () => {
 
-    const [photos, setPhotos] = useState([]);
-    const [currentSearch, setCurrentSearch] = useState("");
+    const [photos, setPhotos] = useState<Array<eachImage>>([]);
+    const [currentSearch, setCurrentSearch] = useState<any | null>("");
     const [everyWord, setEveryWord] = useState(new Set(dict));
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    
 
-  const showFile = async (e) => {
+  const showFile = async (e: any) => {
     e.preventDefault();
     const lettersNoSpaces = /^[A-Za-z]+$/;
     
     const reader = new FileReader();
-    let everyWordArr = [];
+    let everyWordArr: Array<string> = [];
 
-    reader.onload = async (e) => {
+    reader.onload = async (e: any) => {
       const text = e.target.result;
-      const newThing = text.split(/\s+/);
-      let eachWord = ''
-      for (let i = 0; i < newThing.length; i++) {
+      const newThing: Array<string> = text.split(/\s+/);
+      let eachWord: string = '';
+      for (let i: number = 0; i < newThing.length; i++) {
         eachWord = newThing[i].toLowerCase().toString();
         if(lettersNoSpaces.test(eachWord)) {
           everyWordArr.push(eachWord);
@@ -40,7 +43,7 @@ const Main = () => {
     try {
       setErrorMessage("");
       const APIKEY = process.env.REACT_APP_API_KEY;
-      if (everyWord.size > 0) {
+      if (everyWord.size > 0 && currentSearch !== null) {
         const returnedWord = SpellChecker(
           currentSearch,
           everyWord
@@ -53,16 +56,15 @@ const Main = () => {
             throw Error("Error!");
           }
           const data = await res.json();
-          const returnedImages = [];
-
+          
+          const returnedImages: Array<eachImage> = [];
           if (data.hits.length > 0) {
-            let index = 0;
+            let index: number = 0;
             for (let eachValue of data.hits) {
               returnedImages.push({
                 searchWord: eachValue.tags,
                 index,
-                image: eachValue.largeImageURL,
-                webformatURL: eachValue.webformatURL,
+                image: eachValue.largeImageURL
               });
               ++index;
             }
