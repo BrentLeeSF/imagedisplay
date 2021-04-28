@@ -12,7 +12,7 @@ const Main = () => {
 
     const [photos, setPhotos] = useState<Array<eachImage>>([]);
     const [currentSearch, setCurrentSearch] = useState<any | null>("");
-    const [everyWord, setEveryWord] = useState(new Set(dict));
+    const [everyWord, setEveryWord] = useState<Set<string> | null>(new Set(dict));
     const [errorMessage, setErrorMessage] = useState<string>("");
     
 
@@ -43,7 +43,7 @@ const Main = () => {
     try {
       setErrorMessage("");
       const APIKEY = process.env.REACT_APP_API_KEY;
-      if (everyWord.size > 0 && currentSearch !== null) {
+      if (everyWord !== null && currentSearch !== null) {
         const returnedWord = SpellChecker(
           currentSearch,
           everyWord
